@@ -9,6 +9,15 @@ style.href = browser.runtime.getURL("dist/Vencord.css");
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => document.documentElement.append(style),
+    () => {
+        document.documentElement.append(style);
+        window.postMessage({
+            type: "vencord:meta",
+            meta: {
+                EXTENSION_VERSION: browser.runtime.getManifest().version,
+                EXTENSION_BASE_URL: browser.runtime.getURL(""),
+            }
+        });
+    },
     { once: true }
 );
